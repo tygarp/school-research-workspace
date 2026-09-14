@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,8 +15,8 @@
       --primary: #2563eb;
       --primary-dark: #1d4ed8;
       --success: #16a34a;
-      --warning: #d97706;
       --danger: #dc2626;
+      --warning: #d97706;
       --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
     }
 
@@ -29,7 +28,7 @@
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: Inter, Arial, Helvetica, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     button,
@@ -45,7 +44,7 @@
 
     .app {
       max-width: 1600px;
-      margin: 0 auto;
+      margin: auto;
       padding: 24px;
     }
 
@@ -57,18 +56,26 @@
       margin-bottom: 22px;
     }
 
-    .brand h1 {
-      margin: 0 0 6px;
-      font-size: clamp(24px, 4vw, 36px);
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(25px, 4vw, 38px);
       letter-spacing: -1px;
     }
 
-    .brand p {
+    h2,
+    h3 {
+      margin-top: 0;
+    }
+
+    .subtitle {
       margin: 0;
       color: var(--muted);
     }
 
-    .top-actions {
+    .top-actions,
+    .source-actions,
+    .bottom-actions,
+    .modal-actions {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
@@ -76,16 +83,14 @@
 
     .btn {
       border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
       border-radius: 9px;
+      background: white;
+      color: var(--text);
       padding: 10px 14px;
       font-weight: 700;
-      transition: 0.2s;
     }
 
     .btn:hover {
-      transform: translateY(-1px);
       border-color: var(--primary);
     }
 
@@ -97,12 +102,6 @@
 
     .btn.primary:hover {
       background: var(--primary-dark);
-    }
-
-    .btn.success {
-      background: var(--success);
-      color: white;
-      border-color: var(--success);
     }
 
     .btn.danger {
@@ -119,8 +118,23 @@
     }
 
     .panel-title {
-      margin: 0 0 14px;
-      font-size: 18px;
+      font-size: 19px;
+      margin-bottom: 16px;
+    }
+
+    .notice {
+      display: none;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      border-radius: 9px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .notice.show {
+      display: block;
     }
 
     .source-grid {
@@ -130,37 +144,31 @@
     }
 
     .source-card {
+      background: #f8fafc;
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 14px;
-      background: #fbfdff;
+      padding: 15px;
     }
 
     .source-card h3 {
-      margin: 0 0 6px;
-      font-size: 15px;
+      margin-bottom: 8px;
+      font-size: 16px;
     }
 
     .source-card p {
-      margin: 0 0 12px;
       color: var(--muted);
       font-size: 13px;
-      word-break: break-word;
-    }
-
-    .source-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      line-height: 1.5;
+      margin-bottom: 14px;
     }
 
     .file-label {
       display: inline-flex;
       align-items: center;
       border: 1px solid var(--border);
-      background: white;
       border-radius: 8px;
-      padding: 9px 12px;
+      background: white;
+      padding: 10px 12px;
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
@@ -178,7 +186,7 @@
     }
 
     .metric {
-      background: var(--card);
+      background: white;
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 18px;
@@ -206,10 +214,10 @@
     }
 
     .progress-bar {
-      height: 100%;
       width: 0%;
+      height: 100%;
       background: var(--primary);
-      transition: width 0.25s ease;
+      transition: width 0.2s ease;
     }
 
     .metric:nth-child(2) .progress-bar {
@@ -224,11 +232,48 @@
       background: var(--success);
     }
 
+    .countries-chart {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .country-bar {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .country-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .country-track {
+      height: 14px;
+      background: #e2e8f0;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .country-fill {
+      width: 0%;
+      height: 100%;
+      background: #2563eb;
+    }
+
+    .country-fill.thailand {
+      background: #f59e0b;
+    }
+
     .toolbar {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr auto;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
       gap: 10px;
-      margin-bottom: 16px;
+      margin-bottom: 15px;
     }
 
     .field,
@@ -236,9 +281,9 @@
       width: 100%;
       min-width: 0;
       border: 1px solid var(--border);
+      border-radius: 9px;
       background: white;
       color: var(--text);
-      border-radius: 9px;
       padding: 11px 12px;
       outline: none;
     }
@@ -247,6 +292,16 @@
     .search-field:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .table-summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 12px;
     }
 
     .table-wrapper {
@@ -259,7 +314,7 @@
 
     table {
       width: 100%;
-      min-width: 1250px;
+      min-width: 1350px;
       border-collapse: collapse;
     }
 
@@ -269,17 +324,16 @@
 
     th,
     td {
-      border-bottom: 1px solid var(--border);
       padding: 10px;
+      border-bottom: 1px solid var(--border);
       text-align: left;
       vertical-align: top;
     }
 
     th {
-      font-size: 12px;
       color: #475569;
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.4px;
       white-space: nowrap;
     }
 
@@ -293,8 +347,8 @@
 
     .sl-cell {
       width: 55px;
-      font-weight: 800;
       color: var(--muted);
+      font-weight: 800;
     }
 
     .school-cell {
@@ -302,17 +356,17 @@
     }
 
     .district-cell {
-      min-width: 150px;
+      min-width: 170px;
     }
 
     .task-cell {
-      min-width: 240px;
+      min-width: 260px;
     }
 
     .cell-editor {
       display: flex;
-      gap: 6px;
       align-items: flex-start;
+      gap: 6px;
     }
 
     .cell-editor input,
@@ -320,9 +374,9 @@
       width: 100%;
       min-width: 0;
       border: 1px solid transparent;
-      border-radius: 6px;
       background: transparent;
       color: var(--text);
+      border-radius: 6px;
       padding: 6px;
       resize: vertical;
     }
@@ -332,6 +386,43 @@
       border-color: var(--primary);
       background: white;
       outline: none;
+    }
+
+    .task-control {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+    }
+
+    .task-control input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      margin-top: 7px;
+      accent-color: var(--success);
+    }
+
+    .task-control textarea {
+      width: 100%;
+      min-width: 0;
+      min-height: 58px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text);
+      padding: 6px;
+      resize: vertical;
+    }
+
+    .task-control textarea:focus {
+      border-color: var(--primary);
+      background: white;
+      outline: none;
+    }
+
+    .task-control.completed textarea {
+      color: #64748b;
+      text-decoration: line-through;
+      opacity: 0.75;
     }
 
     .copy-btn {
@@ -346,43 +437,19 @@
     }
 
     .copy-btn:hover {
-      border-color: var(--primary);
       color: var(--primary);
-    }
-
-    .task-control {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-    }
-
-    .task-control input[type="checkbox"] {
-      width: 17px;
-      height: 17px;
-      margin-top: 7px;
-      accent-color: var(--success);
-      cursor: pointer;
-    }
-
-    .task-control textarea {
-      min-height: 54px;
-    }
-
-    .task-control.completed textarea {
-      color: #64748b;
-      text-decoration: line-through;
-      opacity: 0.75;
+      border-color: var(--primary);
     }
 
     .status-pill {
       display: inline-block;
+      margin-top: 5px;
       padding: 4px 8px;
       border-radius: 999px;
       background: #f1f5f9;
       color: #475569;
       font-size: 11px;
       font-weight: 800;
-      margin-top: 4px;
     }
 
     .status-pill.completed {
@@ -391,72 +458,22 @@
     }
 
     .empty {
-      text-align: center;
       padding: 36px 20px;
+      text-align: center;
       color: var(--muted);
     }
 
     .bottom-actions {
-      display: flex;
       justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
       margin-top: 18px;
-    }
-
-    .table-summary {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .countries-chart {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .country-bar {
-      flex: 1;
-      min-width: 180px;
-    }
-
-    .country-bar-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .country-track {
-      height: 13px;
-      background: #e2e8f0;
-      border-radius: 99px;
-      overflow: hidden;
-    }
-
-    .country-fill {
-      height: 100%;
-      background: #2563eb;
-    }
-
-    .country-fill.thailand {
-      background: #f59e0b;
     }
 
     .modal-backdrop {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.45);
-      z-index: 20;
+      z-index: 50;
+      background: rgba(15, 23, 42, 0.5);
       align-items: center;
       justify-content: center;
       padding: 20px;
@@ -469,14 +486,11 @@
     .modal {
       width: 100%;
       max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
       background: white;
       border-radius: 14px;
       padding: 20px;
-      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.2);
-    }
-
-    .modal h2 {
-      margin-top: 0;
     }
 
     .form-grid {
@@ -501,27 +515,11 @@
     }
 
     .modal-actions {
-      display: flex;
       justify-content: flex-end;
-      gap: 8px;
-      margin-top: 16px;
+      margin-top: 18px;
     }
 
-    .notice {
-      display: none;
-      margin-bottom: 16px;
-      border-radius: 9px;
-      padding: 12px 14px;
-      background: #eff6ff;
-      color: #1d4ed8;
-      font-size: 13px;
-    }
-
-    .notice.show {
-      display: block;
-    }
-
-    @media (max-width: 1000px) {
+    @media (max-width: 1100px) {
       .analytics {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -530,12 +528,12 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .toolbar .search-container {
+      .search-container {
         grid-column: 1 / -1;
       }
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 700px) {
       .app {
         padding: 14px;
       }
@@ -546,10 +544,7 @@
 
       .source-grid,
       .analytics,
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
+      .form-grid,
       .toolbar {
         grid-template-columns: 1fr;
       }
@@ -564,49 +559,67 @@
 <body>
   <main class="app">
     <header class="topbar">
-      <div class="brand">
+      <div>
         <h1>School Research Workspace</h1>
-        <p>Research schools, manage tasks, and track your progress.</p>
+        <p class="subtitle">
+          Manage school research, tasks, progress, and CSV data.
+        </p>
       </div>
 
       <div class="top-actions">
-        <button class="btn primary" id="addSchoolBtn">+ Add School</button>
-        <button class="btn" id="exportBtn">Export CSV</button>
-        <button class="btn danger" id="clearBtn">Clear Data</button>
+        <button class="btn primary" id="addSchoolBtn">
+          + Add School
+        </button>
+
+        <button class="btn" id="exportBtn">
+          Export CSV
+        </button>
+
+        <button class="btn danger" id="clearBtn">
+          Clear Data
+        </button>
       </div>
     </header>
 
     <div class="notice" id="notice"></div>
 
     <section class="panel">
-      <h2 class="panel-title">Import School Data</h2>
+      <h2 class="panel-title">School Data Sources</h2>
 
       <div class="source-grid">
         <div class="source-card">
-          <h3>🇺🇸 United States Schools</h3>
+          <h3>🇺🇸 United States</h3>
           <p>
-            Import your US school CSV or load the default GitHub CSV source.
+            Data is loaded from your own GitHub repository:
+            data/us-schools.csv
           </p>
 
           <div class="source-actions">
-            <button class="btn primary" id="loadUsBtn">Load US CSV</button>
+            <button class="btn primary" id="loadUsBtn">
+              Reload US Data
+            </button>
 
             <label class="file-label">
               Import US CSV
-              <input type="file" id="usFileInput" accept=".csv,text/csv" />
+              <input
+                type="file"
+                id="usFileInput"
+                accept=".csv,text/csv"
+              />
             </label>
           </div>
         </div>
 
         <div class="source-card">
-          <h3>🇹🇭 Thailand Schools</h3>
+          <h3>🇹🇭 Thailand</h3>
           <p>
-            Import your Thailand school CSV or load the default GitHub CSV source.
+            Data is loaded from your own GitHub repository:
+            data/thailand-schools.csv
           </p>
 
           <div class="source-actions">
             <button class="btn primary" id="loadThailandBtn">
-              Load Thailand CSV
+              Reload Thailand Data
             </button>
 
             <label class="file-label">
@@ -661,7 +674,7 @@
 
       <div class="countries-chart">
         <div class="country-bar">
-          <div class="country-bar-header">
+          <div class="country-header">
             <span>United States</span>
             <span id="usCount">0</span>
           </div>
@@ -672,7 +685,7 @@
         </div>
 
         <div class="country-bar">
-          <div class="country-bar-header">
+          <div class="country-header">
             <span>Thailand</span>
             <span id="thailandCount">0</span>
           </div>
@@ -715,7 +728,7 @@
         </select>
 
         <select class="field" id="sortSelect">
-          <option value="sl">Sort: SL</option>
+          <option value="sl">Sort: Original Order</option>
           <option value="schoolAsc">School A-Z</option>
           <option value="schoolDesc">School Z-A</option>
           <option value="districtAsc">District A-Z</option>
@@ -726,7 +739,7 @@
 
       <div class="table-summary">
         <span id="tableSummary">Showing 0 schools</span>
-        <span>Changes are saved automatically in this browser.</span>
+        <span>Edits are saved in this browser.</span>
       </div>
 
       <div class="table-wrapper">
@@ -806,7 +819,11 @@
         </div>
 
         <div class="modal-actions">
-          <button type="button" class="btn" id="cancelModalBtn">
+          <button
+            type="button"
+            class="btn"
+            id="cancelModalBtn"
+          >
             Cancel
           </button>
 
@@ -819,11 +836,16 @@
   </div>
 
   <script>
-    const US_CSV_URL =
-      "https://raw.githubusercontent.com/nicelion/schools-and-districts/refs/heads/master/csv/schools.csv";
+    /*
+      IMPORTANT:
+      These files must exist in your GitHub repository:
 
-    const THAILAND_CSV_URL =
-      "https://raw.githubusercontent.com/thrxpt/thai-school-data/refs/heads/main/dist/csv/schools.csv";
+      data/us-schools.csv
+      data/thailand-schools.csv
+    */
+
+    const US_CSV_URL = "./data/us-schools.csv";
+    const THAILAND_CSV_URL = "./data/thailand-schools.csv";
 
     const STORAGE_KEY = "schoolResearchWorkspaceData";
 
@@ -834,18 +856,26 @@
 
     function showNotice(message) {
       const notice = $("notice");
+
       notice.textContent = message;
       notice.classList.add("show");
 
-      clearTimeout(showNotice.timeout);
+      clearTimeout(showNotice.timer);
 
-      showNotice.timeout = setTimeout(() => {
+      showNotice.timer = setTimeout(() => {
         notice.classList.remove("show");
-      }, 4500);
+      }, 5000);
     }
 
     function saveData() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(schools));
+      try {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(schools)
+        );
+      } catch (error) {
+        console.error("Could not save data:", error);
+      }
     }
 
     function loadSavedData() {
@@ -853,7 +883,11 @@
         const saved = localStorage.getItem(STORAGE_KEY);
 
         if (saved) {
-          schools = JSON.parse(saved);
+          const parsed = JSON.parse(saved);
+
+          if (Array.isArray(parsed)) {
+            schools = parsed;
+          }
         }
       } catch (error) {
         console.error("Could not load saved data:", error);
@@ -886,18 +920,4 @@
         task3: String(task3 || ""),
 
         task1Done: Boolean(task1Done),
-        task2Done: Boolean(task2Done),
-        task3Done: Boolean(task3Done)
-      };
-    }
-
-    function normalizeHeader(header) {
-      return String(header || "")
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, "");
-    }
-
-    function findValue(row, possibleNames) {
-      const keys = Object.keys(row);
-
-      for (const possibleName of possibleNa
+        task2Done
