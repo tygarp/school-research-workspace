@@ -1,0 +1,903 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Research Workspace</title>
+
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #16a34a;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .brand h1 {
+      margin: 0 0 6px;
+      font-size: clamp(24px, 4vw, 36px);
+      letter-spacing: -1px;
+    }
+
+    .brand p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      border-radius: 9px;
+      padding: 10px 14px;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--primary);
+    }
+
+    .btn.primary {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .btn.primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn.success {
+      background: var(--success);
+      color: white;
+      border-color: var(--success);
+    }
+
+    .btn.danger {
+      color: var(--danger);
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    .panel-title {
+      margin: 0 0 14px;
+      font-size: 18px;
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .source-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      background: #fbfdff;
+    }
+
+    .source-card h3 {
+      margin: 0 0 6px;
+      font-size: 15px;
+    }
+
+    .source-card p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+      word-break: break-word;
+    }
+
+    .source-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .file-label {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .file-label input {
+      display: none;
+    }
+
+    .analytics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .metric {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .progress {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.25s ease;
+    }
+
+    .metric:nth-child(2) .progress-bar {
+      background: #7c3aed;
+    }
+
+    .metric:nth-child(3) .progress-bar {
+      background: #0891b2;
+    }
+
+    .metric:nth-child(4) .progress-bar {
+      background: var(--success);
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr auto;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .field,
+    .search-field {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text);
+      border-radius: 9px;
+      padding: 11px 12px;
+      outline: none;
+    }
+
+    .field:focus,
+    .search-field:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      min-width: 1250px;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: #f8fafc;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      font-size: 12px;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      white-space: nowrap;
+    }
+
+    td {
+      font-size: 13px;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .sl-cell {
+      width: 55px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .school-cell {
+      min-width: 220px;
+    }
+
+    .district-cell {
+      min-width: 150px;
+    }
+
+    .task-cell {
+      min-width: 240px;
+    }
+
+    .cell-editor {
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .cell-editor input,
+    .cell-editor textarea {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text);
+      padding: 6px;
+      resize: vertical;
+    }
+
+    .cell-editor input:focus,
+    .cell-editor textarea:focus {
+      border-color: var(--primary);
+      background: white;
+      outline: none;
+    }
+
+    .copy-btn {
+      flex: 0 0 auto;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      color: #475569;
+      border-radius: 6px;
+      padding: 5px 7px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .copy-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .task-control {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .task-control input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      margin-top: 7px;
+      accent-color: var(--success);
+      cursor: pointer;
+    }
+
+    .task-control textarea {
+      min-height: 54px;
+    }
+
+    .task-control.completed textarea {
+      color: #64748b;
+      text-decoration: line-through;
+      opacity: 0.75;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 11px;
+      font-weight: 800;
+      margin-top: 4px;
+    }
+
+    .status-pill.completed {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 36px 20px;
+      color: var(--muted);
+    }
+
+    .bottom-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .table-summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .countries-chart {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .country-bar {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .country-bar-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .country-track {
+      height: 13px;
+      background: #e2e8f0;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .country-fill {
+      height: 100%;
+      background: #2563eb;
+    }
+
+    .country-fill.thailand {
+      background: #f59e0b;
+    }
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      z-index: 20;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.2);
+    }
+
+    .modal h2 {
+      margin-top: 0;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .notice {
+      display: none;
+      margin-bottom: 16px;
+      border-radius: 9px;
+      padding: 12px 14px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 13px;
+    }
+
+    .notice.show {
+      display: block;
+    }
+
+    @media (max-width: 1000px) {
+      .analytics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .toolbar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .toolbar .search-container {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .app {
+        padding: 14px;
+      }
+
+      .topbar {
+        flex-direction: column;
+      }
+
+      .source-grid,
+      .analytics,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <h1>School Research Workspace</h1>
+        <p>Research schools, manage tasks, and track your progress.</p>
+      </div>
+
+      <div class="top-actions">
+        <button class="btn primary" id="addSchoolBtn">+ Add School</button>
+        <button class="btn" id="exportBtn">Export CSV</button>
+        <button class="btn danger" id="clearBtn">Clear Data</button>
+      </div>
+    </header>
+
+    <div class="notice" id="notice"></div>
+
+    <section class="panel">
+      <h2 class="panel-title">Import School Data</h2>
+
+      <div class="source-grid">
+        <div class="source-card">
+          <h3>🇺🇸 United States Schools</h3>
+          <p>
+            Import your US school CSV or load the default GitHub CSV source.
+          </p>
+
+          <div class="source-actions">
+            <button class="btn primary" id="loadUsBtn">Load US CSV</button>
+
+            <label class="file-label">
+              Import US CSV
+              <input type="file" id="usFileInput" accept=".csv,text/csv" />
+            </label>
+          </div>
+        </div>
+
+        <div class="source-card">
+          <h3>🇹🇭 Thailand Schools</h3>
+          <p>
+            Import your Thailand school CSV or load the default GitHub CSV source.
+          </p>
+
+          <div class="source-actions">
+            <button class="btn primary" id="loadThailandBtn">
+              Load Thailand CSV
+            </button>
+
+            <label class="file-label">
+              Import Thailand CSV
+              <input
+                type="file"
+                id="thailandFileInput"
+                accept=".csv,text/csv"
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="analytics">
+      <div class="metric">
+        <div class="metric-label">Task 1 Completed</div>
+        <div class="metric-value" id="task1Metric">0%</div>
+        <div class="progress">
+          <div class="progress-bar" id="task1Progress"></div>
+        </div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Task 2 Completed</div>
+        <div class="metric-value" id="task2Metric">0%</div>
+        <div class="progress">
+          <div class="progress-bar" id="task2Progress"></div>
+        </div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Task 3 Completed</div>
+        <div class="metric-value" id="task3Metric">0%</div>
+        <div class="progress">
+          <div class="progress-bar" id="task3Progress"></div>
+        </div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Total Schools</div>
+        <div class="metric-value" id="totalMetric">0</div>
+        <div class="progress">
+          <div class="progress-bar" id="totalProgress"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">Countries Added</h2>
+
+      <div class="countries-chart">
+        <div class="country-bar">
+          <div class="country-bar-header">
+            <span>United States</span>
+            <span id="usCount">0</span>
+          </div>
+
+          <div class="country-track">
+            <div class="country-fill" id="usCountryFill"></div>
+          </div>
+        </div>
+
+        <div class="country-bar">
+          <div class="country-bar-header">
+            <span>Thailand</span>
+            <span id="thailandCount">0</span>
+          </div>
+
+          <div class="country-track">
+            <div
+              class="country-fill thailand"
+              id="thailandCountryFill"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="toolbar">
+        <div class="search-container">
+          <input
+            class="search-field"
+            id="searchInput"
+            type="search"
+            placeholder="Search school, district, country, or task..."
+          />
+        </div>
+
+        <select class="field" id="countryFilter">
+          <option value="all">All Countries</option>
+          <option value="United States">United States</option>
+          <option value="Thailand">Thailand</option>
+        </select>
+
+        <select class="field" id="districtFilter">
+          <option value="all">All Districts</option>
+        </select>
+
+        <select class="field" id="statusFilter">
+          <option value="all">All Statuses</option>
+          <option value="pending">Has Pending Tasks</option>
+          <option value="completed">All Tasks Completed</option>
+        </select>
+
+        <select class="field" id="sortSelect">
+          <option value="sl">Sort: SL</option>
+          <option value="schoolAsc">School A-Z</option>
+          <option value="schoolDesc">School Z-A</option>
+          <option value="districtAsc">District A-Z</option>
+          <option value="countryAsc">Country A-Z</option>
+          <option value="progressDesc">Progress High-Low</option>
+        </select>
+      </div>
+
+      <div class="table-summary">
+        <span id="tableSummary">Showing 0 schools</span>
+        <span>Changes are saved automatically in this browser.</span>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>SL</th>
+              <th>School</th>
+              <th>District</th>
+              <th>Country</th>
+              <th>Task 1</th>
+              <th>Task 2</th>
+              <th>Task 3</th>
+              <th>Progress</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="schoolTableBody"></tbody>
+        </table>
+
+        <div class="empty" id="emptyState" style="display: none;">
+          No schools found. Import a CSV or add a school manually.
+        </div>
+      </div>
+
+      <div class="bottom-actions">
+        <button class="btn primary" id="loadMoreBtn">
+          Load More
+        </button>
+
+        <button class="btn" id="showAllBtn">
+          Show All
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <h2>Add School</h2>
+
+      <form id="addSchoolForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="newSchool">School Name</label>
+            <input class="field" id="newSchool" required />
+          </div>
+
+          <div class="form-group">
+            <label for="newDistrict">District</label>
+            <input class="field" id="newDistrict" />
+          </div>
+
+          <div class="form-group full">
+            <label for="newCountry">Country</label>
+            <select class="field" id="newCountry">
+              <option value="United States">United States</option>
+              <option value="Thailand">Thailand</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label for="newTask1">Task 1</label>
+            <textarea class="field" id="newTask1"></textarea>
+          </div>
+
+          <div class="form-group full">
+            <label for="newTask2">Task 2</label>
+            <textarea class="field" id="newTask2"></textarea>
+          </div>
+
+          <div class="form-group full">
+            <label for="newTask3">Task 3</label>
+            <textarea class="field" id="newTask3"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn" id="cancelModalBtn">
+            Cancel
+          </button>
+
+          <button type="submit" class="btn primary">
+            Add School
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const US_CSV_URL =
+      "https://raw.githubusercontent.com/nicelion/schools-and-districts/refs/heads/master/csv/schools.csv";
+
+    const THAILAND_CSV_URL =
+      "https://raw.githubusercontent.com/thrxpt/thai-school-data/refs/heads/main/dist/csv/schools.csv";
+
+    const STORAGE_KEY = "schoolResearchWorkspaceData";
+
+    let schools = [];
+    let visibleLimit = 15;
+
+    const $ = (id) => document.getElementById(id);
+
+    function showNotice(message) {
+      const notice = $("notice");
+      notice.textContent = message;
+      notice.classList.add("show");
+
+      clearTimeout(showNotice.timeout);
+
+      showNotice.timeout = setTimeout(() => {
+        notice.classList.remove("show");
+      }, 4500);
+    }
+
+    function saveData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(schools));
+    }
+
+    function loadSavedData() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+
+        if (saved) {
+          schools = JSON.parse(saved);
+        }
+      } catch (error) {
+        console.error("Could not load saved data:", error);
+        schools = [];
+      }
+    }
+
+    function createSchool({
+      school = "",
+      district = "",
+      country = "United States",
+      task1 = "",
+      task2 = "",
+      task3 = "",
+      task1Done = false,
+      task2Done = false,
+      task3Done = false
+    }) {
+      return {
+        id:
+          Date.now().toString(36) +
+          Math.random().toString(36).substring(2, 8),
+
+        school: String(school || "").trim(),
+        district: String(district || "").trim(),
+        country: String(country || "United States").trim(),
+
+        task1: String(task1 || ""),
+        task2: String(task2 || ""),
+        task3: String(task3 || ""),
+
+        task1Done: Boolean(task1Done),
+        task2Done: Boolean(task2Done),
+        task3Done: Boolean(task3Done)
+      };
+    }
+
+    function normalizeHeader(header) {
+      return String(header || "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "");
+    }
+
+    function findValue(row, possibleNames) {
+      const keys = Object.keys(row);
+
+      for (const possibleName of possibleNa
